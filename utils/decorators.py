@@ -5,7 +5,7 @@ Created on Nov 22, 2012
 '''
 
 import sys
-from datamodels.users import User
+from auth.datamodels import User
 sys.dont_write_bytecode = True
 
 from functools import wraps

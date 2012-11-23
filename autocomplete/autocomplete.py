@@ -9,7 +9,7 @@ sys.dont_write_bytecode = True
 
 
 from utils.server import SlasherHandler
-from datamodels.users import User
+from auth.datamodels import User
 
 
 class Suggest(SlasherHandler, object):

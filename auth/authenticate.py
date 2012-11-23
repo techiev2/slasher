@@ -8,7 +8,7 @@ import sys
 sys.dont_write_bytecode = True
 
 from utils.server import SlasherHandler
-from datamodels.users import User
+from datamodels import User
 
 
 class Authenticate(SlasherHandler, object):
