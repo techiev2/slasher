@@ -8,7 +8,7 @@ import sys
 sys.dont_write_bytecode = True
 
 
-from utils.server import SlasherHandler
+from utils.server import SlasherHandler, serialize
 from auth.datamodels import User
 
 
@@ -19,16 +19,19 @@ class Suggest(SlasherHandler, object):
         Suggest handler init.
         '''
         super(Suggest, self).__init__(*args, **kwargs)
+        self._data = {}
+        self._cookie_var = "session_user"
+        self._user = None
 
     def post(self, *args, **kwargs):
         '''
         HTTP POST Request handler for Suggest.
         '''
-        data = self._data
+        data = serialize(self.request.body)
         if data['type'] == 'username':
             try:
                 user = User.objects.get(
-                            username__iexact=data['sugg'])
+                            username__icontains=data['sugg'])
                 self.response = {
                      'status': 'success',
                      'message': 'Matching user found',
@@ -41,7 +44,7 @@ class Suggest(SlasherHandler, object):
                      'status': 'failure',
                      'message': 'No matching user found'
                  }
-
+ 
         if self.response:
             self.finish(self.response)
 
