@@ -59,5 +59,28 @@ class Authenticate(SlasherHandler, object):
         self.finish(self.response)
 
 
+class Logout(SlasherHandler, object):
+    '''
+    Logout handler.
+    '''
+
+    def __init__(self, *args, **kwargs):
+        '''
+        Overridden init for Main.
+        '''
+        super(Logout, self).__init__(*args, **kwargs)
+        self._data = {}
+        self._template = "index.html"
+        self._cookie_var = "session_user"
+        self._user = None
+
+    def get(self, *args, **kwargs):
+        super(Logout, self).get(*args, **kwargs)
+        if not self._user:
+            self.redirect('/')
+        else:
+            self.clear_cookie(self._cookie_var)
+            self.redirect('/')
+
 if __name__ == '__main__':
     pass
