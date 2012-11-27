@@ -7,9 +7,10 @@ Created on Nov 20, 2012
 import sys
 sys.dont_write_bytecode = True
 
-from authenticate import Authenticate
+from authenticate import Authenticate, Logout
 
-URLS = [('/login/$', Authenticate)]
+URLS = [('/login/$', Authenticate),
+        ('/logout/$', Logout)]
 
 
 __all__ = ['URLS']
