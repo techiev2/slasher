@@ -30,10 +30,11 @@ class Main(SlasherHandler, object):
         HTTP GET Request handler method for Main handler.
         '''
         super(Main, self).get(*args, **kwargs)
-        self._data.update({
-            'user': self._user.to_json()
-        })
-        self.write(self.generate(data=self._data))
+        if self._user:
+            self._data.update({
+                'user': self._user.to_json()
+            })
+            self.write(self.generate(data=self._data))
 
 
 __all__ = ['Main']
